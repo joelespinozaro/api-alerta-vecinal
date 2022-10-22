@@ -5,7 +5,7 @@ export default function handler(req, res) {
     const { email, phoneNumber, name, lastName } = req.body;
     const newUser = { email, phoneNumber, name, lastName };
     saveUser(newUser).then(r => {
-      res.status(200).json({statusCode: 200, ...r})
+      res.status(200).json({message: "Registro exitoso"})
     })
     
   
