@@ -1,19 +1,19 @@
 import { app, db } from './firebaseConfig';
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 
 const dbInstance = collection(db, 'user');
 
-export const saveUser = ({ email, phoneNumber, name, lastName }) => {
-    addDoc(dbInstance, {
+export const saveUser = ({email, phoneNumber, name, lastName}) => {
+    return addDoc(dbInstance, {
         email,
         phoneNumber,
         name,
         lastName,
-        updatedAt: new Date().getTime(),
-        createdAt: new Date().getTime(),
-    }).catch(
-        throwError('Error al agregar devit')
-    )
+        updatedAt: Timestamp.fromDate(new Date),
+        createdAt: Timestamp.fromDate(new Date),
+    }).then((docRef) => {
+        return { id: docRef.id }
+    })
 }
 
 
